@@ -8,7 +8,7 @@ from StringIO import StringIO
 from xml.etree import ElementTree
 from traceback import format_exception, format_exception_only
 
-from mapnik import Map, Color, Envelope, render, Image, Layer, Style, Projection as MapnikProjection, Coord, mapnik_version
+from mapnik import Map, Color, Envelope, Box2d, render, Image, Layer, Style, Projection as MapnikProjection, Coord, mapnik_version
 
 try:
     from PIL.Image import new
@@ -486,7 +486,7 @@ class WMSBaseServiceHandler(BaseServiceHandler):
                             raise ServerConfigurationError('Layer "%s" refers to non-existent style "%s".' % (layername, stylename))
                 
                 m.layers.append(layer)
-        m.zoom_to_box(Envelope(params['bbox'][0], params['bbox'][1], params['bbox'][2], params['bbox'][3]))
+        m.zoom_to_box(Box2d(params['bbox'][0], params['bbox'][1], params['bbox'][2], params['bbox'][3]))
         return m
 
 class BaseExceptionHandler:

@@ -3,7 +3,8 @@
 import re
 import sys
 import ConfigParser
-from mapnik import Style, Map, load_map, load_map_from_string, Envelope, Coord
+from mapnik import Style, Map, load_map, load_map_from_string, Box2d, Envelope, Coord
+import logging
 
 from ogcserver import common
 from ogcserver.wms111 import ServiceHandler as ServiceHandler111
@@ -188,9 +189,9 @@ This style will effectively be hidden by the 'all styles' default style for mult
         llp = layerproj.inverse(Coord(env.minx, env.miny))
         urp = layerproj.inverse(Coord(env.maxx, env.maxy))
         if self.latlonbb is None:
-            self.latlonbb = Envelope(llp, urp)
+            self.latlonbb = Box2d(llp, urp)
         else:
-            self.latlonbb.expand_to_include(Envelope(llp, urp))
+            self.latlonbb.expand_to_include(Box2d(llp, urp))
         self.ordered_layers.append(layer)
         self.layers[layername] = layer
 

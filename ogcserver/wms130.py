@@ -8,7 +8,7 @@ ElementTree.register_namespace('xlink', "http://www.w3.org/1999/xlink")
 
 from ogcserver.common import ParameterDefinition, Response, Version, ListFactory, \
                    ColorFactory, CRSFactory, CRS, WMSBaseServiceHandler, \
-                   BaseExceptionHandler, Projection, Envelope, to_unicode
+                   BaseExceptionHandler, Projection, Envelope, Box2d, to_unicode
 from ogcserver.exceptions import OGCException, ServerConfigurationError
 
 class ServiceHandler(WMSBaseServiceHandler):
@@ -287,7 +287,7 @@ class ServiceHandler(WMSBaseServiceHandler):
             bbox = params['bbox']
             # MapInfo Pro 10 does not "know" this is the way and gets messed up
             if not 'mapinfo' in params['HTTP_USER_AGENT'].lower():
-                m.zoom_to_box(Envelope(bbox[1], bbox[0], bbox[3], bbox[2]))
+                m.zoom_to_box(Box2d(bbox[1], bbox[0], bbox[3], bbox[2]))
         return m
 
 class ExceptionHandler(BaseExceptionHandler):
