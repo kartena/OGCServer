@@ -47,10 +47,12 @@ class BaseWMSFactory:
         self.styles = {}
         self.aggregatestyles = {}
         self.map_attributes = {}
+        self.map_scale = 1
         self.meta_styles = {}
         self.meta_layers = {}
         self.configpath = configpath
         self.latlonbb = None
+        log = logging.getLogger('ogcserver.wsgi')
 
     def loadXML(self, xmlfile=None, strict=False, xmlstring='', basepath=''):
         config = ConfigParser.SafeConfigParser()
@@ -69,6 +71,10 @@ class BaseWMSFactory:
         else:
             raise ServerConfigurationError("Mapnik configuration XML is not specified - 'xmlfile' and 'xmlstring' variables are empty.\
 Please set one of this variables to load mapnik map object.")
+        # get the map scale
+        if tmp_map.parameters:
+            if tmp_map.parameters['scale']:
+                self.map_scale = float(tmp_map.parameters['scale'])
         # parse map level attributes
         if tmp_map.background:
             self.map_attributes['bgcolor'] = tmp_map.background
