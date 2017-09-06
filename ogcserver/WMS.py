@@ -4,6 +4,7 @@ import re
 import sys
 import ConfigParser
 from mapnik import Style, Map, load_map, load_map_from_string, Envelope, Coord
+import logging
 
 from ogcserver import common
 from ogcserver.wms111 import ServiceHandler as ServiceHandler111
