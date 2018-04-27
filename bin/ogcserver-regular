@@ -1,0 +1,9 @@
+#!/bin/bash
+gunicorn \
+       "ogcserver.wsgi:WSGIApp('/conf/ogcserver-osm.conf', '/data/osm-crisp/osm-mapnik.xml')" \
+       --access-logfile=/logs/ogcserver-osm-access.log \
+       --error-logfile=/logs/ogcserver-osm-error.log \
+       --timeout=300  \
+       -k eventlet \
+       -w 6 \
+       -b 0.0.0.0:80

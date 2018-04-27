@@ -1,0 +1,6 @@
+mapnik
+Pillow
+Pastescript
+WebOb
+gunicorn
+eventlet
