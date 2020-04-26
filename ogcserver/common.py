@@ -318,7 +318,8 @@ class WMSBaseServiceHandler(BaseServiceHandler):
     def GetMap(self, params):
         m = self._buildMap(params)
         im = Image(params['width'], params['height'])
-        render(m, im, self.mapfactory.map_scale)
+        map_scale = self.mapfactory.map_scale if self.mapfactory is not None else 1
+        render(m, im, map_scale)
         format = PIL_TYPE_MAPPING[params['format']]
         if mapnik_version() >= 200300:
             # Mapnik 2.3 uses png8 as default, use png32 for backwards compatibility
