@@ -52,7 +52,6 @@ class BaseWMSFactory:
         self.meta_layers = {}
         self.configpath = configpath
         self.latlonbb = None
-        log = logging.getLogger('ogcserver.wsgi')
 
     def loadXML(self, xmlfile=None, strict=False, xmlstring='', basepath=''):
         config = ConfigParser.SafeConfigParser()
